@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'PersonCenter.dart';
-import 'GankIoNews.dart';
+import 'gankio/GankIoNews.dart';
 
 class DrawerLeft extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _DrewerLeftStatus extends State<DrawerLeft> {
                   .showSnackBar(new SnackBar(content: new Text("ashkaha")));
               Navigator.of(context).pop();
               Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new PersonCenter("all")));
+                  builder: (BuildContext context) => new GankIoNews("all")));
             },
           ),
           new Divider(),

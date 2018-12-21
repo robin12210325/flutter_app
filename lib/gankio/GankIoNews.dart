@@ -171,9 +171,10 @@ class _GankIoNews extends State<GankIoNews>
               ),
             ),
             new Container(
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
               child: new Container(
                 child: item.images == null
-                    ? new Text("")
+                    ? null
                     : new gankioImgaes(item.images),
               ),
             ),

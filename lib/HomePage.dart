@@ -4,7 +4,7 @@ import 'PersonCenter.dart';
 import 'Tab2.dart';
 import 'Tab3.dart';
 import 'DrawerLeft.dart';
-import 'NewsList.dart';
+import 'mainnews/MainNewsList.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   TabController _controller;
   final List<Tab> list = <Tab>[
     new Tab(
-      text: 'Home',
+      text: '资讯',
       icon: new Icon(Icons.home),
     ), //icon和text的显示顺序已经内定，如需自定义，到child属性里面加吧
     new Tab(
@@ -27,7 +27,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
     ),
     new Tab(
       icon: new Icon(Icons.book),
-      text: 'Book',
+      text: '个人中心',
     ),
   ];
   @override
@@ -54,7 +54,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
       ),
       drawer: new DrawerLeft(),
       body: TabBarView(
-        children: [new NewsList(), new Tab2(), new Tab3()],
+        children: [new MainNewsTitleList(), new Tab2(), new PersonCenter("")],
         controller: _controller,
       ),
       bottomNavigationBar: new Container(
