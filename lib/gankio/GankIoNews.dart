@@ -255,7 +255,7 @@ class _Images extends State<gankioImgaes> {
 //        itemBuilder: imageWidget,
 //    );
     return Container(
-        height: getScreenWidth(context) / 3,
+        height: getScreenWidth(context) / 2,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: currentImages.length,
@@ -270,10 +270,10 @@ class _Images extends State<gankioImgaes> {
   Widget imageWidget(BuildContext context, int index) {
     return new Container(
       color: Colors.white30,
-      height: getScreenWidth(context) / 3,
+      height: getScreenWidth(context),
       child: InkWell(
         child: new Container(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
           child: Image.network(
             currentImages[index],
             fit: BoxFit.fill,
