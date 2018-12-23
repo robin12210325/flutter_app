@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'GankNewsModel.dart';
+import '../ScreenUtil.dart';
 
 class GankIoNews extends StatefulWidget {
   final String type;
@@ -58,9 +59,9 @@ class _GankIoNews extends State<GankIoNews>
   /**
    * 获取数据
    */
-  Future<List<GankNewsModel>> _getData(int currentPage, int pageSize) async {
+  Future<List<GankNewsModel>> _getData(int currentpage, int pageSize) async {
     List lists;
-    String url = "http://gank.io/api/data/$currentType/$pageSize/$currentPage";
+    String url = "http://gank.io/api/data/$currentType/$pageSize/$currentpage";
     print("_GankIoNews=url   " + currentType);
     Response response = await dio.get(url);
     if (response.statusCode == HttpStatus.OK) {
@@ -142,13 +143,13 @@ class _GankIoNews extends State<GankIoNews>
   Widget OtherWidget(BuildContext context, GankNewsModel item) {
     return new Container(
       padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
-      width: getScreenWidth(context),
+      width: ScreenUtil.getScreenWidth(context),
       child: new Card(
         child: Column(
           children: <Widget>[
             new Container(
               padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-              width: getScreenWidth(context),
+              width: ScreenUtil.getScreenWidth(context),
               child: new Text(
                 item.publishedAt,
                 style: new TextStyle(
@@ -160,7 +161,7 @@ class _GankIoNews extends State<GankIoNews>
             ),
             new Container(
               padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-              width: getScreenWidth(context),
+              width: ScreenUtil.getScreenWidth(context),
               child: new Text(
                 item.desc,
                 style: new TextStyle(
@@ -179,7 +180,7 @@ class _GankIoNews extends State<GankIoNews>
               ),
             ),
             new Container(
-              width: getScreenWidth(context),
+              width: ScreenUtil.getScreenWidth(context),
               padding: EdgeInsets.fromLTRB(5, 5, 5, 10),
               child: new Text(
                 item.url,
@@ -199,8 +200,8 @@ class _GankIoNews extends State<GankIoNews>
   Widget fuliWidget(BuildContext context, String url) {
     return new Container(
       color: Colors.white30,
-      height: getScreenWidth(context) / 3 * 4,
-      width: getScreenWidth(context),
+      height: ScreenUtil.getScreenWidth(context) / 3 * 4,
+      width: ScreenUtil.getScreenWidth(context),
       padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0),
       child: InkWell(
         child: Image.network(
@@ -210,20 +211,6 @@ class _GankIoNews extends State<GankIoNews>
         onTap: null,
       ),
     );
-  }
-
-  static double getScreenWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width;
-  }
-
-  /** 获取屏幕高度 */
-  static double getScreenHeight(BuildContext context) {
-    return MediaQuery.of(context).size.height;
-  }
-
-  /** 获取系统状态栏高度 */
-  static double getSysStatsHeight(BuildContext context) {
-    return MediaQuery.of(context).padding.top;
   }
 }
 

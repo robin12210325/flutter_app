@@ -104,7 +104,7 @@ class _DrewerLeftStatus extends State<DrawerLeft> {
               Navigator.of(context).pop();
               Navigator.of(context).push(new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      new GankIoNews("前端 ")));
+                      new GankIoNews("前端")));
             },
           ),
           ListTile(

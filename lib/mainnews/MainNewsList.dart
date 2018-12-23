@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'MainNewsModel.dart';
+import 'MainNewsItemTypeList.dart';
 
 class NewsTitles {
   String titleText;
@@ -23,7 +24,7 @@ class MainNewsTitleList extends StatefulWidget {
 
 class _MainNewsTitleList extends State<MainNewsTitleList>
     with SingleTickerProviderStateMixin {
-  List<NewsTitles> titles = <NewsTitles>[];
+  List<NewsTitles> titles = [];
 
 //  final List<NewsTitles> titles = <NewsTitles>[
 //    new NewsTitles('头条',new MainNewsItemTypeList(newType: 'toutiao')),    //拼音就是参数值
@@ -56,7 +57,7 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.blue,
         title: new Container(
           child: new TabBar(
             controller: _controller,
@@ -80,12 +81,12 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
 
   Future<List<MainNewsModel>> _getTitleListData() async {
     String url = BaseConstants.newTitleListUrl;
-    List lists;
+    List datas;
     Response response = await dio.get(url);
     if (response.statusCode == HttpStatus.OK) {
-      lists = response.data['results'];
-      print("MainNews===2  titleList " + lists.toString());
-      return lists.map((models) {
+      datas = response.data['results'];
+      print("MainNews===2  titleList " + datas.toString());
+      return datas.map((models) {
         return MainNewsModel.fromJson(models);
       }).toList();
     }
@@ -93,8 +94,12 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
 
   Future<Null> _getTitleList() {
     final Completer<Null> completer = new Completer<Null>();
-    _getTitleListData().then((lists) {
+
+    Future<List<MainNewsModel>> lsi = _getTitleListData();
+    print("MainNews===8  completer " + lsi.toString());
+    lsi.then((lists) {
       //setState和adapter中的notifySetdataChanged类似
+      print("MainNews===8  completer " + lists.toString());
       setState(() {
         NewsTitles newsTitles;
         titles.clear();
@@ -109,29 +114,5 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
     completer.complete(null);
     print("MainNews===3  titleList " + titles.toString());
     return completer.future;
-  }
-}
-
-/**
- * 每个分类资讯的列表
- */
-class MainNewsItemTypeList extends StatefulWidget {
-  String newType;
-  MainNewsItemTypeList({Key key, this.newType});
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return new _MainNewsItemTypeList();
-  }
-}
-
-class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
-    with SingleTickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Center(
-      child: new Text(widget.newType),
-    );
   }
 }
