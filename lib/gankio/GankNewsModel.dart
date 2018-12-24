@@ -13,12 +13,6 @@ class GankNewsModel{
   final List images;
   const GankNewsModel(this._id, this.createdAt, this.desc, this.publishedAt, this.source,
       this.type, this.url, this.used, this.who,this.images);
-
-  @override
-  String toString() {
-    return 'GankNewsModel{_id: $_id, createdAt: $createdAt, desc: $desc, publishedAt: $publishedAt, source: $source, type: $type, url: $url, used: $used, who: $who}';
-  }
-
   GankNewsModel.fromJson(Map<String, dynamic> json)
       : _id = json['_id'],
         createdAt = json['createdAt'],

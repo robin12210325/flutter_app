@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import '../BaseConstants.dart';
+
 /**
  * 每个分类资讯的列表
  */
@@ -21,7 +22,6 @@ class MainNewsItemTypeList extends StatefulWidget {
 
 class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
     with SingleTickerProviderStateMixin {
-
   List<MainNewsModel> datas;
   int currentPage = 1;
   int pageSize = 10;
@@ -30,7 +30,7 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
   @override
   void initState() {
     super.initState();
-    _refresh();
+    _getDataList();
 //    _scrollController.addListener(_scrollListener);
   }
 
@@ -41,12 +41,19 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
     datas = null;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body:
-        new RefreshIndicator(child: contentWidget(), onRefresh: _refresh));
+        body: new RefreshIndicator(
+            child: contentWidget(), onRefresh: _getDataList));
   }
+  void showDetailNews(){
+    print("hehehe");
+//    Scaffold.of(context)
+//                  .showSnackBar(new SnackBar(content: new Text(datas[index].title)));
+  }
+
   Widget contentWidget() {
     var content;
     if (datas.isEmpty) {
@@ -56,32 +63,62 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
         physics: AlwaysScrollableScrollPhysics(),
         itemCount: datas.length,
         controller: _scrollController,
-        itemBuilder: fuliWidget,
+        itemBuilder: mainNewsItem,
       );
     }
     return content;
   }
-  Widget fuliWidget(BuildContext context, int index) {
+
+  Widget mainNewsItem(BuildContext context, int index) {
     return new Container(
       color: Colors.white30,
-      height: ScreenUtil.getScreenWidth(context) / 3 * 4,
+      height: ScreenUtil.getScreenWidth(context) / 4,
       width: ScreenUtil.getScreenWidth(context),
-      padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0),
+      margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0),
       child: InkWell(
-        child: Image.network(
-          datas[index].icon,
-          fit: BoxFit.fill,
+        child: new Card(
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                height: ScreenUtil.getScreenWidth(context) / 4,
+                width: ScreenUtil.getScreenWidth(context) / 4,
+                child: new Image.network(
+                  datas[index].icon,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Container(
+                height: ScreenUtil.getScreenWidth(context) / 4,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Text(
+                      datas[index].title,
+                      style: new TextStyle(color: Colors.redAccent),
+                    ),
+                    new Text(datas[index].id),
+                    new Text(datas[index].created_at),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-        onTap: null,
+        onTap: showDetailNews,
       ),
     );
   }
+
   /**
    * 获取数据
    */
   Future<List<MainNewsModel>> _getData() async {
     List lists;
-    String url = BaseConstants.newListItemUrl+widget.newType;
+    String url = BaseConstants.newListItemUrl + widget.newType;
     Response response = await dio.get(url);
     if (response.statusCode == HttpStatus.OK) {
       lists = response.data['results'];
@@ -95,14 +132,16 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
   /**
    * 进入页面获取第一页数据和下拉刷新
    */
-  Future<Null> _refresh() {
+  Future<Null> _getDataList() {
     final Completer<Null> completer = new Completer<Null>();
     _getData().then((lists) {
       setState(() {
+        if(null!= datas){
+          datas.clear();
+        }
         datas = lists;
       });
-    }).catchError((onerror) {
-    });
+    }).catchError((onerror) {});
 
     completer.complete(null);
     return completer.future;

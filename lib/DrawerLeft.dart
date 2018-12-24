@@ -49,8 +49,8 @@ class _DrewerLeftStatus extends State<DrawerLeft> {
             title: new Text("全部"),
             trailing: new Icon(Icons.arrow_right),
             onTap: () {
-              Scaffold.of(context)
-                  .showSnackBar(new SnackBar(content: new Text("ashkaha")));
+//              Scaffold.of(context)
+//                  .showSnackBar(new SnackBar(content: new Text("ashkaha")));
               Navigator.of(context).pop();
               Navigator.of(context).push(new MaterialPageRoute(
                   builder: (BuildContext context) => new GankIoNews("all")));
