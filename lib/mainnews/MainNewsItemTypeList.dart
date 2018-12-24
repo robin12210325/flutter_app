@@ -108,7 +108,11 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
             ],
           ),
         ),
-        onTap: showDetailNews,
+        onTap: (){
+//          print(object)
+          Scaffold.of(context)
+                  .showSnackBar(new SnackBar(content: new Text(datas[index].title)));
+        },
       ),
     );
   }

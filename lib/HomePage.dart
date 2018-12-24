@@ -48,10 +48,10 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: AppBar(
-        title: Text("yongxing"),
-        backgroundColor: Colors.blue,
-      ),
+//      appBar: AppBar(
+//        title: Text("yongxing"),
+//        backgroundColor: Colors.blue,
+//      ),
       drawer: new DrawerLeft(),
       body: TabBarView(
         children: [new MainNewsTitleList(), new Tab2(), new PersonCenter("")],

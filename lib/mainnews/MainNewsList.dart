@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../BaseConstants.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'MainNewsModel.dart';
 import 'MainNewsItemTypeList.dart';
@@ -24,26 +25,25 @@ class MainNewsTitleList extends StatefulWidget {
 
 class _MainNewsTitleList extends State<MainNewsTitleList>
     with SingleTickerProviderStateMixin {
-  List<NewsTitles> titles = [];
+//  List<NewsTitles> titles = [];
 
-//  final List<NewsTitles> titles = <NewsTitles>[
-//    new NewsTitles('头条',new MainNewsItemTypeList(newType: 'toutiao')),    //拼音就是参数值
-//    new NewsTitles('社会',new MainNewsItemTypeList(newType: 'shehui')),
-//    new NewsTitles('国内',new MainNewsItemTypeList(newType: 'guonei')),
-//    new NewsTitles('国际',new MainNewsItemTypeList(newType: 'guoji')),
-//    new NewsTitles('娱乐',new MainNewsItemTypeList(newType: 'yule')),
-//    new NewsTitles('体育',new MainNewsItemTypeList(newType: 'tiyu')),
-//    new NewsTitles('军事',new MainNewsItemTypeList(newType: 'junshi')),
-//    new NewsTitles('科技',new MainNewsItemTypeList(newType: 'keji')),
-//    new NewsTitles('财经',new MainNewsItemTypeList(newType: 'caijing')),
-//    new NewsTitles('时尚',new MainNewsItemTypeList(newType: 'shishang')),
-//  ];
+  final List<NewsTitles> titles = <NewsTitles>[
+    new NewsTitles('科技资讯',new MainNewsItemTypeList(newType: 'wow')),    //拼音就是参数值
+    new NewsTitles('趣味软件/游戏',new MainNewsItemTypeList(newType: 'apps')),
+    new NewsTitles('装备党',new MainNewsItemTypeList(newType: 'imrich')),
+    new NewsTitles('草根新闻',new MainNewsItemTypeList(newType: 'funny')),
+    new NewsTitles('Android',new MainNewsItemTypeList(newType: 'android')),
+    new NewsTitles('创业新闻',new MainNewsItemTypeList(newType: 'diediedie')),
+    new NewsTitles('独立思想',new MainNewsItemTypeList(newType: 'thinking')),
+    new NewsTitles('iOS',new MainNewsItemTypeList(newType: 'iOS')),
+    new NewsTitles('团队博客',new MainNewsItemTypeList(newType: 'teamblog')),
+  ];
   TabController _controller;
   Dio dio = new Dio();
   @override
   void initState() {
     _controller = new TabController(length: titles.length, vsync: this);
-    _getTitleList();
+//    _getTitleList();
     super.initState();
   }
 
@@ -83,6 +83,19 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
     String url = BaseConstants.newTitleListUrl;
     List datas;
     Response response = await dio.get(url);
+    if (response.statusCode == HttpStatus.OK) {
+      datas = response.data['results'];
+      print("MainNews===2  titleList " + datas.toString());
+      return datas.map((models) {
+        return MainNewsModel.fromJson(models);
+      }).toList();
+    }
+  }
+
+  List<MainNewsModel> _getTitleListData1()  {
+    String url = BaseConstants.newTitleListUrl;
+    List datas;
+    Response response = await h.get(url);
     if (response.statusCode == HttpStatus.OK) {
       datas = response.data['results'];
       print("MainNews===2  titleList " + datas.toString());

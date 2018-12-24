@@ -16,10 +16,15 @@ class _PersonCenter extends State<PersonCenter> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: new Center(
-          child: new Text(titleStrState),
+        leading: null,
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: Text("个人中心",style: TextStyle(color: Colors.white),),
+      ),
+      body: new Center(
+        child: new Center(
+          child: new Text("个人中心"),
         ),
-        backgroundColor: Colors.redAccent,
       ),
     );
   }

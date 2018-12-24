@@ -42,7 +42,6 @@ class _GankIoNews extends State<GankIoNews>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     print("_GankIoNews=currentType   " + currentType);
     print("_GankIoNews=datas   " + datas.toString());
     return new Scaffold(
