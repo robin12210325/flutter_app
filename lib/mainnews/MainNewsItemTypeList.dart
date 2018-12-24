@@ -22,7 +22,7 @@ class MainNewsItemTypeList extends StatefulWidget {
 
 class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
     with SingleTickerProviderStateMixin {
-  List<MainNewsModel> datas;
+  List<MainNewsModel> datas= [];
   int currentPage = 1;
   int pageSize = 10;
   ScrollController _scrollController = new ScrollController();
