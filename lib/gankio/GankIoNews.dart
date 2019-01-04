@@ -46,9 +46,8 @@ class _GankIoNews extends State<GankIoNews>
     print("_GankIoNews=datas   " + datas.toString());
     return new Scaffold(
         appBar: new AppBar(
-          title: new Center(
-            child: Text(currentType),
-          ),
+          title: Text(currentType),
+//          ),
           centerTitle: true,
         ),
         body:
@@ -91,7 +90,8 @@ class _GankIoNews extends State<GankIoNews>
     completer.complete(null);
     return completer.future;
   }
-  Future<Null> _loadMoreData(){
+
+  Future<Null> _loadMoreData() {
     final Completer<Null> completer = new Completer<Null>();
     _getData(currentPage, pageSize).then((lists) {
       setState(() {
@@ -173,9 +173,8 @@ class _GankIoNews extends State<GankIoNews>
             new Container(
               padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
               child: new Container(
-                child: item.images == null
-                    ? null
-                    : new gankioImgaes(item.images),
+                child:
+                    item.images == null ? null : new gankioImgaes(item.images),
               ),
             ),
             new Container(

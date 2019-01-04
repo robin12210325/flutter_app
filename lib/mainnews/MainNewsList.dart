@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'MainNewsModel.dart';
 import 'MainNewsItemTypeList.dart';
+import '../DrawerLeft.dart';
 
 class NewsTitles {
   String titleText;
@@ -25,25 +26,13 @@ class MainNewsTitleList extends StatefulWidget {
 
 class _MainNewsTitleList extends State<MainNewsTitleList>
     with SingleTickerProviderStateMixin {
-//  List<NewsTitles> titles = [];
-
-  final List<NewsTitles> titles = <NewsTitles>[
-    new NewsTitles('科技资讯',new MainNewsItemTypeList(newType: 'wow')),    //拼音就是参数值
-    new NewsTitles('趣味软件/游戏',new MainNewsItemTypeList(newType: 'apps')),
-    new NewsTitles('装备党',new MainNewsItemTypeList(newType: 'imrich')),
-    new NewsTitles('草根新闻',new MainNewsItemTypeList(newType: 'funny')),
-    new NewsTitles('Android',new MainNewsItemTypeList(newType: 'android')),
-    new NewsTitles('创业新闻',new MainNewsItemTypeList(newType: 'diediedie')),
-    new NewsTitles('独立思想',new MainNewsItemTypeList(newType: 'thinking')),
-    new NewsTitles('iOS',new MainNewsItemTypeList(newType: 'iOS')),
-    new NewsTitles('团队博客',new MainNewsItemTypeList(newType: 'teamblog')),
-  ];
+  List<NewsTitles> titles = [];
   TabController _controller;
   Dio dio = new Dio();
   @override
   void initState() {
     _controller = new TabController(length: titles.length, vsync: this);
-//    _getTitleList();
+    _getTitleList();
     super.initState();
   }
 
@@ -55,13 +44,17 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
 
   @override
   Widget build(BuildContext context) {
+    _controller = new TabController(length: titles.length, vsync: this);
     return new Scaffold(
+      drawer: new DrawerLeft(),
       appBar: new AppBar(
+
         backgroundColor: Colors.blue,
         title: new Container(
           child: new TabBar(
             controller: _controller,
-            tabs: titles.map((item){      //NewsTab可以不用声明
+            tabs: titles.map((item){
+              print("aaaaaaa=" + item.titleText);//NewsTab可以不用声明
               return new Tab(
                   text: item.titleText);
             }).toList(),
@@ -83,19 +76,6 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
     String url = BaseConstants.newTitleListUrl;
     List datas;
     Response response = await dio.get(url);
-    if (response.statusCode == HttpStatus.OK) {
-      datas = response.data['results'];
-      print("MainNews===2  titleList " + datas.toString());
-      return datas.map((models) {
-        return MainNewsModel.fromJson(models);
-      }).toList();
-    }
-  }
-
-  List<MainNewsModel> _getTitleListData1()  {
-    String url = BaseConstants.newTitleListUrl;
-    List datas;
-    Response response = await h.get(url);
     if (response.statusCode == HttpStatus.OK) {
       datas = response.data['results'];
       print("MainNews===2  titleList " + datas.toString());

@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   TabController _controller;
+  int sd = 0;
   final List<Tab> list = <Tab>[
     new Tab(
       text: '资讯',
@@ -35,6 +36,8 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     _controller = new TabController(length: list.length, vsync: this);
+    sd = _controller.index;
+    print("homePage===" + sd.toString());
   }
 
   @override
@@ -48,9 +51,11 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-//      appBar: AppBar(
-//        title: Text("yongxing"),
+//      appBar:
+//        AppBar(
+//        title: Text("资讯"),
 //        backgroundColor: Colors.blue,
+//          centerTitle: true,
 //      ),
       drawer: new DrawerLeft(),
       body: TabBarView(
