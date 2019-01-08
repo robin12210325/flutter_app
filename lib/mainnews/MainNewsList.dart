@@ -25,7 +25,7 @@ class MainNewsTitleList extends StatefulWidget {
 }
 
 class _MainNewsTitleList extends State<MainNewsTitleList>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   List<NewsTitles> titles = [];
   TabController _controller;
   Dio dio = new Dio();
@@ -87,10 +87,9 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
 
   Future<Null> _getTitleList() {
     final Completer<Null> completer = new Completer<Null>();
-
-    Future<List<MainNewsModel>> lsi = _getTitleListData();
-    print("MainNews===8  completer " + lsi.toString());
-    lsi.then((lists) {
+//    Future<List<MainNewsModel>> lsi = _getTitleListData();
+//    print("MainNews===8  completer " + lsi.toString());
+    _getTitleListData().then((lists) {
       //setState和adapter中的notifySetdataChanged类似
       print("MainNews===8  completer " + lists.toString());
       setState(() {
