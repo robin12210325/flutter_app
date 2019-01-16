@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'GankNewsModel.dart';
 import '../ScreenUtil.dart';
+import 'WebView.dart';
 
 class GankIoNews extends StatefulWidget {
   final String type;
@@ -180,14 +181,28 @@ class _GankIoNews extends State<GankIoNews>
             new Container(
               width: ScreenUtil.getScreenWidth(context),
               padding: EdgeInsets.fromLTRB(5, 5, 5, 10),
-              child: new Text(
-                item.url,
-                style: new TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.green,
+              child: InkWell(
+                child: new Text(
+                  item.url,
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.green,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
+                onTap:() {
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new WebView(url: item.url)));
+                },
               ),
+//              child: new Text(
+//                item.url,
+//                style: new TextStyle(
+//                  fontSize: 16.0,
+//                  color: Colors.green,
+//                ),
+//                textAlign: TextAlign.left,
+//              ),
             ),
           ],
         ),
@@ -209,6 +224,13 @@ class _GankIoNews extends State<GankIoNews>
         onTap: null,
       ),
     );
+  }
+
+  interWebview(BuildContext context,String url) {
+//    Navigator.of(context).pop();
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => new WebView(url: url)));
+//    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("nihao")));
   }
 }
 

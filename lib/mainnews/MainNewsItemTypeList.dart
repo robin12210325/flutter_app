@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import '../BaseConstants.dart';
+import 'package:event_bus/event_bus.dart';
+import '../utils/MessageEvent.dart';
 
 /**
  * 每个分类资讯的列表
@@ -112,6 +114,8 @@ class _MainNewsItemTypeList extends State<MainNewsItemTypeList>
 //          print(object)
           Scaffold.of(context)
                   .showSnackBar(new SnackBar(content: new Text(datas[index].title)));
+          eventBus.fire(new MessageEvent("titleKey", "nihao"));
+          print("sssssssssss" + "titleKey");
         },
       ),
     );

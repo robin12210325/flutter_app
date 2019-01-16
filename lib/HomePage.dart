@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'Mine.dart';
 import 'PersonCenter.dart';
-import 'Tab2.dart';
-import 'Tab3.dart';
+import 'AddressList.dart';
 import 'DrawerLeft.dart';
 import 'mainnews/MainNewsList.dart';
+import 'package:event_bus/event_bus.dart';
+import 'utils/MessageEvent.dart';
+import 'utils/Message.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
+  String titleKey="资讯";
   TabController _controller;
   int sd = 0;
   final List<Tab> list = <Tab>[
@@ -37,7 +40,17 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = new TabController(length: list.length, vsync: this);
     sd = _controller.index;
-    print("homePage===" + sd.toString());
+    eventBus.on<MessageEvent>().listen((MessageEvent event){
+      setState(() {
+        if(event.messageKey == Message.ADDRESS_LIST ){
+          titleKey = event.messageValue;
+        }else if(event.messageKey == Message.PERSON_CENTER){
+          titleKey = event.messageValue;
+        }else if(event.messageValue == Message.MAIN_NEWS){
+          titleKey = event.messageValue;
+        }
+      });
+    });
   }
 
   @override
@@ -51,15 +64,15 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-//      appBar:
-//        AppBar(
-//        title: Text("资讯"),
-//        backgroundColor: Colors.blue,
-//          centerTitle: true,
-//      ),
+      appBar:
+        AppBar(
+        title: Text('$titleKey'),
+        backgroundColor: Colors.blue,
+          centerTitle: true,
+      ),
       drawer: new DrawerLeft(),
       body: TabBarView(
-        children: [new MainNewsTitleList(), new Tab2(), new PersonCenter("")],
+        children: [new MainNewsTitleList(), new AddressList(), new PersonCenter("")],
         controller: _controller,
       ),
       bottomNavigationBar: new Container(

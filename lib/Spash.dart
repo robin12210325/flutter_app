@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'HomePage.dart';
+import 'MainPage.dart';
 
 class SpashPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class SpashPageStates extends State<SpashPage> {
       try {
         Navigator.of(context).pushAndRemoveUntil(
             new MaterialPageRoute(
-                builder: (BuildContext context) => new HomePage()),
+                builder: (BuildContext context) => new MainPage()),
             (Route route) => route == null);
       } catch (e) {}
     });

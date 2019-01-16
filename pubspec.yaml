@@ -18,6 +18,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   dio: ^1.0.0 #网络请求
   json_annotation: ^1.2.0
+  flutter_webview_plugin: ^0.2.1+2
+  sqflite: any
+  event_bus: ^1.0.1
+  video_player: ^0.8.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
@@ -39,6 +44,18 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - images/addresslist_select.png
+    - images/addresslist_unselect.png
+    - images/arrow_left.png
+    - images/back.png
+    - images/map_unselect.png
+    - images/map_select.png
+    - images/news_unselect.png
+    - images/news_select.png
+    - images/person_unselect.png
+    - images/person_select.png
+    - images/back_white.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

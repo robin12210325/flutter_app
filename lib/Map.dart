@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-class Tab3 extends StatefulWidget{
+class Map extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new _Tab3();
+    return new _Map();
   }
 }
-class _Tab3 extends State<Tab3> with SingleTickerProviderStateMixin{
+class _Map extends State<Map> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold(
+      body: Center(
+        child: Text("nihao"),
+      ),
+    );
   }
 }

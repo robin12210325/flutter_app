@@ -7,6 +7,9 @@ import 'package:dio/dio.dart';
 import 'MainNewsModel.dart';
 import 'MainNewsItemTypeList.dart';
 import '../DrawerLeft.dart';
+import '../utils/MessageEvent.dart';
+import '../utils/Message.dart';
+import '../ScreenUtil.dart';
 
 class NewsTitles {
   String titleText;
@@ -31,9 +34,10 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
   Dio dio = new Dio();
   @override
   void initState() {
+    super.initState();
     _controller = new TabController(length: titles.length, vsync: this);
     _getTitleList();
-    super.initState();
+    eventBus.fire(new MessageEvent(Message.MAIN_NEWS, "资讯"));
   }
 
   @override
@@ -46,23 +50,26 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
   Widget build(BuildContext context) {
     _controller = new TabController(length: titles.length, vsync: this);
     return new Scaffold(
-      drawer: new DrawerLeft(),
-      appBar: new AppBar(
-
-        backgroundColor: Colors.blue,
-        title: new Container(
-          child: new TabBar(
-            controller: _controller,
-            tabs: titles.map((item){
-              print("aaaaaaa=" + item.titleText);//NewsTab可以不用声明
-              return new Tab(
-                  text: item.titleText);
-            }).toList(),
-            indicatorColor: Colors.white,
-            isScrollable: true,   //水平滚动的开关，开启后Tab标签可自适应宽度并可横向拉动，关闭后每个Tab自动压缩为总长符合屏幕宽度的等宽，默认关闭
+      appBar: /*PreferredSize(
+          child:*/ new AppBar(
+              backgroundColor: Colors.blue,
+              title: new Container(
+                child: new TabBar(
+                  controller: _controller,
+                  tabs: titles.map((item){
+                    print("aaaaaaa=" + item.titleText);//NewsTab可以不用声明
+                    return new Tab(
+                        text: item.titleText);
+                  }).toList(),
+                  indicatorColor: Colors.white,
+                  isScrollable: true,   //水平滚动的开关，开启后Tab标签可自适应宽度并可横向拉动，关闭后每个Tab自动压缩为总长符合屏幕宽度的等宽，默认关闭
+                ),
+//                height: ScreenUtil.getSysStatsHeight(context)*1.5,
+              )
           ),
-        )
-      ),
+//          preferredSize:
+//          Size.fromHeight(ScreenUtil.getSysStatsHeight(context)*2)
+//      ),
       body: TabBarView(
         controller: _controller,
         children: titles.map((item) {
