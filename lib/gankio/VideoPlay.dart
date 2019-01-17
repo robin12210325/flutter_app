@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
 import '../utils/ScreenUtil.dart';
-class VideoPlay extends StatefulWidget{
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+import '../utils/ScreenUtil.dart';
+
+class VideoPlay extends StatefulWidget {
+  String videoUrl1 =
+      "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=146888&resourceType=video&editionType=default&source=aliyun";
   String videoUrl;
-  VideoPlay({Key key,this.videoUrl});
+  VideoPlay({Key key, this.videoUrl});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return new _VideoPlay();
   }
 }
-class _VideoPlay extends State<VideoPlay> with SingleTickerProviderStateMixin{
+
+class _VideoPlay extends State<VideoPlay> with SingleTickerProviderStateMixin {
+  VideoPlayerController videoPlayerController;
+  bool isPlaying = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -37,11 +58,42 @@ class _VideoPlay extends State<VideoPlay> with SingleTickerProviderStateMixin{
               ),
             ),
             preferredSize:
-            Size.fromHeight(ScreenUtil.getSysStatsHeight(context) * 1.8)
-        ),
-        body: Center(
-          child: Text("休息视频"),
-        ),
+                Size.fromHeight(ScreenUtil.getSysStatsHeight(context) * 1.8)),
+        body:Column(
+          children: <Widget>[
+            Container(
+              height: ScreenUtil.getScreenWidth(context) * 3 / 4,
+              child: Center(
+                child: new Chewie(
+                  new VideoPlayerController.network(this.widget.videoUrl1),
+                  aspectRatio: 4 / 3,
+                  autoPlay: !true,
+                  looping: true,
+                  showControls: true,
+                  // 占位图
+                  placeholder: new Container(
+                    color: Colors.grey,
+                  ),
+
+                  // 是否在 UI 构建的时候就加载视频
+                  autoInitialize: !true,
+
+                  // 拖动条样式颜色
+                  materialProgressColors: new ChewieProgressColors(
+                    playedColor: Colors.red,
+                    handleColor: Colors.blue,
+                    backgroundColor: Colors.grey,
+                    bufferedColor: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(10,20,0,0),
+              child: new Text("剧情介绍"),
+            )
+          ],
+        ) ,
       ),
     );
   }

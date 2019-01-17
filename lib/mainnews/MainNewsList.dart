@@ -32,7 +32,12 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
   void initState() {
     super.initState();
     _controller = new TabController(length: titles.length, vsync: this);
-    _getTitleList();
+    if(BaseConstants.items.length>0){
+      titles = BaseConstants.items;
+    }else{
+      _getTitleList();
+    }
+
     eventBus.fire(new MessageEvent(Message.MAIN_NEWS, "资讯"));
   }
 
@@ -106,6 +111,7 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
         }
 //        SharedPreferencesUtils.save(titles);
 //        SharedPreferencesUtils.read
+      BaseConstants.items = titles;
       });
     }).catchError((onerror) {});
     completer.complete(null);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'BaseConstants.dart';
 import 'HomePage.dart';
 import 'MainPage.dart';
 
@@ -32,6 +32,7 @@ class SpashPageStates extends State<SpashPage> {
   void dispose() {
     // TODO: implement dispose
     _t.cancel();
+    BaseConstants.items.clear();
     super.dispose();
   }
 
