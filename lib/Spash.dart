@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'BaseConstants.dart';
-import 'HomePage.dart';
 import 'MainPage.dart';
 
 class SpashPage extends StatefulWidget {

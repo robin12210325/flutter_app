@@ -50,32 +50,68 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
   @override
   Widget build(BuildContext context) {
     _controller = new TabController(length: titles.length, vsync: this);
-    return new Scaffold(
-      appBar: /*PreferredSize(
-          child:*/ new AppBar(
+    /*return new Scaffold(
+      appBar: *//*PreferredSize(
+          child:*//* new AppBar(
               backgroundColor: Colors.blue,
               title: new Container(
                 child: new TabBar(
                   controller: _controller,
                   tabs: titles.map((item){
-                    print("aaaaaaa=" + item.titleText);//NewsTab可以不用声明
                     return new Tab(
                         text: item.titleText);
                   }).toList(),
                   indicatorColor: Colors.white,
                   isScrollable: true,   //水平滚动的开关，开启后Tab标签可自适应宽度并可横向拉动，关闭后每个Tab自动压缩为总长符合屏幕宽度的等宽，默认关闭
                 ),
-//                height: ScreenUtil.getSysStatsHeight(context)*1.5,
               )
           ),
-//          preferredSize:
-//          Size.fromHeight(ScreenUtil.getSysStatsHeight(context)*2)
 //      ),
       body: TabBarView(
         controller: _controller,
         children: titles.map((item) {
           return item.newsItemTypeList; //使用参数值
         }).toList(),
+      ),
+    );*/
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.all_inclusive),
+        backgroundColor:Colors.blue,
+        elevation: 2.0,
+        highlightElevation: 2.0,
+        onPressed: () {},
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            color:Colors.blue,
+            height: 45.0,
+            child: TabBar(
+              isScrollable: true,
+              //是否可以滚动
+              controller: _controller,
+              labelColor: Colors.white,
+              unselectedLabelColor: Color(0xff666666),
+              labelStyle: TextStyle(fontSize: 16.0),
+              tabs: titles.map((item) {
+                return Tab(
+                  text: item.titleText,
+                );
+              }).toList(),
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _controller,
+              children: titles.map((item) {
+                return Stack(children: <Widget>[
+                  Align(alignment:Alignment.topCenter,child: item.newsItemTypeList,),
+                ],);
+              }).toList(),
+            ),
+          )
+        ],
       ),
     );
   }
