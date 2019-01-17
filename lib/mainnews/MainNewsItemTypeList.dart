@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../ScreenUtil.dart';
+import 'package:flutter_app/utils/ScreenUtil.dart';
 import 'MainNewsModel.dart';
 import 'dart:io';
 import 'dart:async';

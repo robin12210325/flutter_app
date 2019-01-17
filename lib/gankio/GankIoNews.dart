@@ -4,8 +4,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'GankNewsModel.dart';
-import '../ScreenUtil.dart';
+import 'package:flutter_app/utils/ScreenUtil.dart';
 import 'WebView.dart';
+import 'VideoPlay.dart';
 
 class GankIoNews extends StatefulWidget {
   final String type;
@@ -46,11 +47,14 @@ class _GankIoNews extends State<GankIoNews>
     print("_GankIoNews=currentType   " + currentType);
     print("_GankIoNews=datas   " + datas.toString());
     return new Scaffold(
-        appBar: new AppBar(
-          title: Text(currentType),
+        appBar: PreferredSize(
+            child: new AppBar(
+              title: Text(currentType),
 //          ),
-          centerTitle: true,
-        ),
+              centerTitle: true,
+            ),
+            preferredSize:
+                Size.fromHeight(ScreenUtil.getSysStatsHeight(context) * 1.8)),
         body:
             new RefreshIndicator(child: contentWidget(), onRefresh: _refresh));
   }
@@ -136,8 +140,76 @@ class _GankIoNews extends State<GankIoNews>
       case "福利":
         return fuliWidget(context, datas[index].url);
         break;
+      case "休息视频":
+        return RestVideo(context, datas[index]);
+        break;
     }
     return OtherWidget(context, datas[index]);
+  }
+
+  Widget RestVideo(BuildContext context, GankNewsModel item) {
+    return new Container(
+      padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+      width: ScreenUtil.getScreenWidth(context),
+      child: Card(
+        child: InkWell(
+          child: Column(
+            children: <Widget>[
+              new Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                width: ScreenUtil.getScreenWidth(context),
+                child: new Text(
+                  item.publishedAt,
+                  style: new TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.deepOrange,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              new Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                width: ScreenUtil.getScreenWidth(context),
+                child: new Text(
+                  item.desc,
+                  style: new TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.deepOrange,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              new Container(
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                color: Color.fromARGB(220, 220, 220, 220),
+                height: ScreenUtil.getScreenWidth(context)/3,
+                child: new Center(
+                  child: Image.asset("images/play.png",width: 40,height: 40,),
+                ),
+              ),
+              new Container(
+                width: ScreenUtil.getScreenWidth(context),
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 10),
+                child: new Text(
+                  item.url,
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.green,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ],
+          ),
+          onTap: () {
+            Navigator.of(context).push(new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    new VideoPlay(videoUrl: item.url)));
+          },
+        ),
+      ),
+    );
   }
 
   Widget OtherWidget(BuildContext context, GankNewsModel item) {
@@ -190,9 +262,10 @@ class _GankIoNews extends State<GankIoNews>
                   ),
                   textAlign: TextAlign.left,
                 ),
-                onTap:() {
+                onTap: () {
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new WebView(url: item.url)));
+                      builder: (BuildContext context) =>
+                          new WebView(url: item.url)));
                 },
               ),
 //              child: new Text(
@@ -226,12 +299,12 @@ class _GankIoNews extends State<GankIoNews>
     );
   }
 
-  interWebview(BuildContext context,String url) {
-//    Navigator.of(context).pop();
-    Navigator.of(context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => new WebView(url: url)));
-//    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("nihao")));
-  }
+//  interWebview(BuildContext context,String url) {
+////    Navigator.of(context).pop();
+//    Navigator.of(context).push(new MaterialPageRoute(
+//        builder: (BuildContext context) => new WebView(url: url)));
+////    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("nihao")));
+//  }
 }
 
 class gankioImgaes extends StatefulWidget {

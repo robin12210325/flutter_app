@@ -19,7 +19,7 @@ class GankNewsModel{
         desc = json['desc'],
         publishedAt = json['publishedAt'],
         source = json['source'],
-        type = json['publishedAt'],
+        type = json['type'],
         url = json['url'],
         used = json['used'],
         who = json['who'],

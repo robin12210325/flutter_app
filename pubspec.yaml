@@ -22,6 +22,7 @@ dependencies:
   sqflite: any
   event_bus: ^1.0.1
   video_player: ^0.8.0
+  shared_preferences: "^0.4.2"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,6 +57,7 @@ flutter:
     - images/person_unselect.png
     - images/person_select.png
     - images/back_white.png
+    - images/play.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

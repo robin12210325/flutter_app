@@ -4,7 +4,7 @@ import 'package:flutter_app/PersonCenter.dart';
 import 'AddressList.dart';
 import 'Map.dart';
 import 'DrawerLeft.dart';
-import 'ScreenUtil.dart';
+import 'package:flutter_app/utils/ScreenUtil.dart';
 
 class MainPage extends StatefulWidget {
   @override

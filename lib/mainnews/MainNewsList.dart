@@ -9,13 +9,9 @@ import 'MainNewsItemTypeList.dart';
 import '../DrawerLeft.dart';
 import '../utils/MessageEvent.dart';
 import '../utils/Message.dart';
-import '../ScreenUtil.dart';
-
-class NewsTitles {
-  String titleText;
-  MainNewsItemTypeList newsItemTypeList;
-  NewsTitles(this.titleText, this.newsItemTypeList);
-}
+import 'package:flutter_app/utils/ScreenUtil.dart';
+import 'MainNewsTitles.dart';
+import '../utils/SharedPreferencesUtils.dart';
 
 /**
  * 资讯的分类
@@ -108,6 +104,8 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
           titles.add(newsTitles);
           print("MainNews===3  titleList " + newsTitles.toString());
         }
+//        SharedPreferencesUtils.save(titles);
+//        SharedPreferencesUtils.read
       });
     }).catchError((onerror) {});
     completer.complete(null);
