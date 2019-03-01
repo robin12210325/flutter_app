@@ -3,6 +3,8 @@ import '../utils/ScreenUtil.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import '../utils/ScreenUtil.dart';
+import 'package:flutter/services.dart';
+import '../utils/MessageEvent.dart';
 
 class VideoPlay extends StatefulWidget {
   String videoUrl1 =
@@ -29,6 +31,7 @@ class _VideoPlay extends State<VideoPlay> with SingleTickerProviderStateMixin {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+//    eventBus.fire(new MessageEvent("", ""));
   }
 
   @override
@@ -65,11 +68,12 @@ class _VideoPlay extends State<VideoPlay> with SingleTickerProviderStateMixin {
               height: ScreenUtil.getScreenWidth(context) * 3 / 4,
               child: Center(
                 child: new Chewie(
-                  new VideoPlayerController.network(this.widget.videoUrl1),
+                  new VideoPlayerController.network(this.widget.videoUrl),
                   aspectRatio: 4 / 3,
                   autoPlay: !true,
                   looping: true,
                   showControls: true,
+                  fullScreenByDefault: true,
                   // 占位图
                   placeholder: new Container(
                     color: Colors.grey,

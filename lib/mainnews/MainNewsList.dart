@@ -38,7 +38,7 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
       _getTitleList();
     }
 
-    eventBus.fire(new MessageEvent(Message.MAIN_NEWS, "资讯"));
+//    eventBus.fire(new MessageEvent(Message.MAIN_NEWS, "资讯"));
   }
 
   @override
@@ -93,7 +93,7 @@ class _MainNewsTitleList extends State<MainNewsTitleList>
               controller: _controller,
               labelColor: Colors.white,
               unselectedLabelColor: Color(0xff666666),
-              labelStyle: TextStyle(fontSize: 16.0),
+              labelStyle: TextStyle(fontSize: 14.0),
               tabs: titles.map((item) {
                 return Tab(
                   text: item.titleText,

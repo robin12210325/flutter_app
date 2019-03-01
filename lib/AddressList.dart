@@ -15,7 +15,7 @@ class _AddressList extends State<AddressList> with SingleTickerProviderStateMixi
   void initState() {
     // TODO: implement initState
     super.initState();
-    eventBus.fire(new MessageEvent(Message.ADDRESS_LIST, "通讯录"));
+//    eventBus.fire(new MessageEvent(Message.ADDRESS_LIST, "通讯录"));
   }
   @override
   Widget build(BuildContext context) {

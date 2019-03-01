@@ -17,7 +17,7 @@ class _PersonCenter extends State<PersonCenter> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    eventBus.fire(new MessageEvent(Message.PERSON_CENTER, "个人中心"));
+//    eventBus.fire(new MessageEvent(Message.PERSON_CENTER, "个人中心"));
   }
   @override
   Widget build(BuildContext context) {
